@@ -1,1 +1,1 @@
-# jetbot-nano
+# Autonomous racing jetbot nano
