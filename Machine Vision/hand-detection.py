@@ -31,7 +31,7 @@ def draw_rectangle(event,x,y,flags,param):
         drawing = False
         undo = True
         cv.rectangle(img,(ix,iy),(x,y),color)
-        line_type = 'dash' if clasa else 'whole'
+        line_type = 'bot' if clasa else 'whole'
         xmin,xmax = (ix,x) if ix < x else (x,ix)
         ymin,ymax = (iy,y) if iy < y else (y,iy)
         values = [line_type,xmin,ymin,xmax,ymax]
@@ -41,13 +41,13 @@ def draw_rectangle(event,x,y,flags,param):
 def safe_rectangles(im_name):
     global rectangles
     df = pd.DataFrame(rectangles)
-    df.to_csv('data/'+im_name[:-4]+'.csv',index=False)
+    df.to_csv(im_path+'/csv/'+im_name[:-4]+'.csv',index=False)
     for key in rectangles: 
         rectangles[key].clear()
 
 
-im_path = r'C:\Users\vase_\Downloads\mobile-robotics\data'
-index = 0
+im_path = r'C:\Users\vase_\Downloads\jetbot-nano\Data\snapshots'
+index = 344
 im_name = str(index) + '.jpg'
 img = unduimg = cv.imread(os.path.join(im_path, im_name))
 cv.namedWindow('image')

@@ -120,7 +120,7 @@ def read_data_rpn(im_path, im_size, im_depth, annot_path, exclude_empty, shuffle
 
             annot = [row['ymin'], row['xmin'], row['ymax'], row['xmax']]    # min_row, min_col, max_row, max_col
 
-            if row['class'] == 'dash' and row['ymax'] - row['ymin'] + 1 > 5:  # select positive car samples, height > 25px
+            if row['class'] == 'bot' and row['ymax'] - row['ymin'] + 1 > 10:  # select positive car samples, height > 25px
                 objects.append(annot)
 
         if exclude_empty:
@@ -434,6 +434,7 @@ def save_results_cls_square(results_path, images, plot_color, output_cls, anchor
             min_col = np.int(center_col - np.round(anchor_dim[1] / 2))
 
             # plot bounding box onto image
+            cv2.putText(image,str(anchor_dim[0])+'x'+str(anchor_dim[1]),(min_col[1],min_row[0]-2),1,0.5,plot_color)
             cv2.rectangle(image, (min_col, min_row), (min_col + anchor_dim[1], min_row + anchor_dim[0]),
                               color=plot_color, thickness=1)
 

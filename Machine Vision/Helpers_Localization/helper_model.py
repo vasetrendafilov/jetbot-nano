@@ -77,9 +77,13 @@ def construct_model_ssd_cls(input_shape, num_anchors):
     f5 = Conv2D(filters=32, kernel_size=(3, 3), padding='same', activation='relu', kernel_initializer='he_normal')(f4)
     f6 = MaxPool2D(pool_size=(2, 2))(f5)
 
+    f7 = Conv2D(filters=32, kernel_size=(3, 3), padding='same', activation='relu', kernel_initializer='he_normal')(f6)
+    f8 = Conv2D(filters=32, kernel_size=(3, 3), padding='same', activation='relu', kernel_initializer='he_normal')(f7)
+    f9 = MaxPool2D(pool_size=(2, 2))(f8)
+
     # classifier
     x_class_1 = Conv2D(filters=32, kernel_size=(3, 3), padding='same', activation='relu',
-                       kernel_initializer='he_normal')(f6)
+                       kernel_initializer='he_normal')(f9)
     x_class_2 = Conv2D(filters=num_anchors + 1, kernel_size=(1, 1), padding='same', activation='sigmoid',
                        kernel_initializer='glorot_uniform', name="rpn_out_class")(x_class_1)
 
