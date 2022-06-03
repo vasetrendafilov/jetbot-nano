@@ -31,7 +31,7 @@ def draw_rectangle(event,x,y,flags,param):
         drawing = False
         undo = True
         cv.rectangle(img,(ix,iy),(x,y),color)
-        line_type = 'bot' if clasa else 'whole'
+        line_type = 'black' if clasa else 'me'
         xmin,xmax = (ix,x) if ix < x else (x,ix)
         ymin,ymax = (iy,y) if iy < y else (y,iy)
         values = [line_type,xmin,ymin,xmax,ymax]
@@ -46,8 +46,8 @@ def safe_rectangles(im_name):
         rectangles[key].clear()
 
 
-im_path = r'C:\Users\vase_\Downloads\jetbot-nano\Data\snapshots'
-index = 344
+im_path = r'C:\Users\vase_\Downloads\jetbot-nano\Data\vid2'
+index = 0
 im_name = str(index) + '.jpg'
 img = unduimg = cv.imread(os.path.join(im_path, im_name))
 cv.namedWindow('image')

@@ -1,6 +1,5 @@
 **/*.ini
 .ipynb_checkpoints/
 __pycache__/
-Data/snapshots/
-Data/csv/
+Data/
 
