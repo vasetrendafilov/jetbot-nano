@@ -95,16 +95,16 @@ def read_data_rpn(im_path, im_size, im_depth, annot_path, exclude_empty, shuffle
 
     # list images in source folder
     for im_name in tqdm(os.listdir(os.path.join(im_path))):
-
+       
         # --- load image ---
         if not im_name[-4:] != '.bmp':  # exclude system files
             continue
-
+      
         if im_depth == 3:
             image = cv2.imread(os.path.join(im_path, im_name))
         else:
             image = cv2.imread(os.path.join(im_path, im_name), 0)
-
+            
         if im_size != (image.shape[1], image.shape[0]):
             image = cv2.resize(image, im_size, interpolation=cv2.INTER_AREA)
 

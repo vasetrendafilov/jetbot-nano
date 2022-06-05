@@ -46,8 +46,8 @@ def safe_rectangles(im_name):
         rectangles[key].clear()
 
 
-im_path = r'C:\Users\vase_\Downloads\jetbot-nano\Data\vid2'
-index = 0
+im_path = r'C:\Users\vase_\Downloads\jetbot-nano\Data\snapshots'
+index = 716
 im_name = str(index) + '.jpg'
 img = unduimg = cv.imread(os.path.join(im_path, im_name))
 cv.namedWindow('image')
@@ -65,7 +65,7 @@ while(1):
         im_name = str(index) + '.jpg'
         img = unduimg = cv.imread(os.path.join(im_path, im_name))
     if k == ord('x'):
-        if undo:
+        if undo and rectangles:
             img = deepcopy(unduimg)
             for key in rectangles: 
                 rectangles[key].pop()
