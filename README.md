@@ -82,9 +82,6 @@ The lane detection processing is located in `lane detection.ipynb` where the alg
     * Use temporal data if available
 6. Draw the three lanes on the image
 7. Calculate target and current direction of the car
-8. Top down view on the road
-
-Below are the images that show how the pipeline transforms the original image, according to the steps described above:
 
 ![alt text](images/step0.jpg)
 
@@ -98,11 +95,19 @@ Below are the images that show how the pipeline transforms the original image, a
 
 ![alt text](images/step8.jpg)
 
+
+
+As additional possibilities in the algorithm, we have a perspective projection of the road with a view from above for easier and precise calculations for where to place the vehicle on the road. The four points are selected as the intersection of the lanes with the picture frame and the three options can be selected to see the left or right part of the road or all together. We also have potential enhancements for the lane detection like image filtering with a fixed or adaptive threshold on the grayscale image. The fixed one is much faster than the adaptive one, but there are problems with the brightness, it is enough for the lamp in the room to turn off and it will not be able to filter the lanes.
+
+<img src="images/step4.jpg" width="425"/> <img src="images/step5.jpg" width="425"/> 
+
 ![alt text](images/step9.jpg)
 
 ### Calibration
 
 For the calibration of the image I am using the checkerboard method provided by opencv. All the images taken with the checkerboard are found in the `/calibration` folder. I have also made a simple calibration jupyter notebook to find the calibration parameters. In my case i use special flags and criteria for the fisheye lens of the duckiebot. The last field in the notebook is used to display the differences between the raw and undistorted image.
+
+<img src="images\raw.jpg" width="425"/> <img src="images\undistorted.jpg" width="425"/> 
 
 ### Dash lane test 
 
@@ -132,6 +137,7 @@ The hardest thing is to find the right lanes with all the noise on the road and 
 
 ### Things to add  
   * New function to filter out if it is a right and left turn 
+  * Predicting lanes even though they are not in the image
   * Using the top down view to calculate precise movement for where the car is.
 
 ## Vehicle detection
@@ -144,8 +150,9 @@ The neural network that saved me was yolov5. It's the newest version which is de
 
 I've tried a lot of configurations for yolov5 because it comes with varying network architectures. The most acceptable configuration is yolo5n which is the smallest and fastest model of the bunch and for my use case it worked great. I've used 150 epochs and 15 batch size. The trained models can be found in `yolov5\runs\train`. Most unbelievable results were from the test images, i have never trained the model with the robots from behind, you can see the results in `yolov5\runs\detect`. One last thing is left to make it run on the duckebot, but for now the gpu of the jetson nano does not work.
 
-![alt text](yolov5\runs\detect\exp2\627.jpg)
+![alt text](yolov5/runs/detect/exp2/627.jpg)
 
+![alt text](images/yolov5.jpg)
   
 <!-- LICENSE -->
 ## License
@@ -158,6 +165,6 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Vase Trendafilov - [@TrendafilovVase](https://twitter.com/TrendafilovVase) - vasetrendafilov@gmail.com
 
-Project Link: [https://github.com/vasetrendafilov/jetbot-nano](https://github.com/vasetrendafilov/jetbot-nano)
+Project Link: [https://github.com/vasetrendafilov/self-driving-car](https://github.com/vasetrendafilov/self-driving-car)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
