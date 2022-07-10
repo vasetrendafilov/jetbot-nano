@@ -1,0 +1,9 @@
+version: '1.0'
+
+configurations:
+  default:
+    restart: unless-stopped
+    network_mode: host
+    privileged: true
+    volumes:
+      - /data:/data
