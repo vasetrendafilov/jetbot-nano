@@ -27,14 +27,13 @@ class Duckiebot(DTROS):
         self.rez_w = self.setupParam(f"/{self.name}/camera_node/res_w", 408)
         
         # To dynamically change the param bash shell into one of the docker containers of the duckie 
-        # and type rosparam set /emergency_stop 2
-        self.emergency_stop = self.setupParam("/emergency_stop",1)
-        # Always get the param before using it
-        self.emergency_stop = rospy.get_param("/emergency_stop")
+        # and type rosparam set /emergency_stop True or False
+        self.emergency_stop = self.setupParam("/emergency_stop",False)
 
         # Publications
         self.pub_wheel = rospy.Publisher(f'/{self.name}/wheels_driver_node/wheels_cmd',WheelsCmdStamped, queue_size=1)
         self.pub_car = rospy.Publisher(f'/{self.name}/car_cmd_switch_node/cmd',Twist2DStamped, queue_size=1)
+        self.pub_estop = rospy.Publisher(f'/{self.name}/wheels_driver_node/emergency_stop',BoolStamped, queue_size=1)
 
         # Subscriptions
         self.sub_right_encoder = rospy.Subscriber(f"/{self.name}/right_wheel_encoder_node/tick", WheelEncoderStamped, self.right_encoder, queue_size=1)
@@ -109,6 +108,12 @@ class Duckiebot(DTROS):
         self.pub_wheel.publish(cmd_msg)
         rospy.loginfo("Published speed for left (%s) and right (%s) wheel", str(cmd_msg.vel_left), str(cmd_msg.vel_right))
     
+    def emergency_stop_trough_param(self):
+        """ Stop the robot when setting the rosparam /emergency_stop to True""" 
+        msg = BoolStamped()
+        msg.data = rospy.get_param("/emergency_stop")
+        self.pub_estop.publish(msg)
+
     def setupParam(self,param_name,value):
         """
         Set parameter for the robot.\n

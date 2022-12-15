@@ -25,6 +25,9 @@ def process_image(img):
             final_img = weighted_img(lines_canny_img, undistorted_img)
             duckie.publish_wheel_cmd(0.0, 0.0)
         #duckie.save_image('turn1',dec_img)
+    # to test just the wheels comment everything above and uncomment this two lines
+    # duckie.publish_wheel_cmd(0.4, 0.4)
+    # duckie.emergency_stop_trough_param()
 if __name__ == '__main__':
     # create the node
     duckie = Duckiebot(node_name='my_node')
@@ -34,7 +37,5 @@ if __name__ == '__main__':
     D=np.array([[-0.051386452545095], [0.18476371756060023], [-0.5729487022183332], [0.49089690391610674]])
     map1, map2 = cv2.fisheye.initUndistortRectifyMap(K, D, np.eye(3), K, DIM, cv2.CV_16SC2)
     duckie.connect_camera(process_image)
-    # test wheels
-    duckie.publish_car_cmd(0,0)
     # keep spinning
     rospy.spin()

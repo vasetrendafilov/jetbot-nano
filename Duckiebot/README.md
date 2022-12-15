@@ -44,3 +44,7 @@ as you want. A default launcher called `default.sh` must always be present.
     docker -H patka1.local build -t duckiebot:v1 .
 #### Run on duckie
     docker -H patka1.local run -it --rm  -v /data:/data --name duckiebot --privileged --network=host duckiebot:v1
+### 7.Important things
+
+* If the robot is slow go to the dashboard and into portainer. Delete all the cashed docker images, they are the first ones that will show up and they all have a tag of unused with an orange background.
+* Do not do anything on the robot until the lights turn white
